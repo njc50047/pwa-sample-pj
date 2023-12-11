@@ -9,7 +9,7 @@ function App() {
     (async() => {
       OneSignal.init({ 
         // TODO: 事前にメモしておいた appID に置き換えてください。OneSignal のダッシュボードでヘッダーの Settins → Keys & IDs でも確認できます。
-        appId: 'ec29a915-d795-40cf-8f9b-d604a46d3e29', 
+        appId: '48acf5cf-a77b-4c97-ab6f-e2d69f19efe1', 
       })
     })()
   }, [])
