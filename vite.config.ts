@@ -9,8 +9,10 @@ export default defineConfig({
     : "./",                       // この行を追加
   plugins: [
     react(),
-    VitePWA({ registerType: 'autoUpdate',
+    VitePWA({ 
+      registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
+      injectRegister: 'auto',
       manifest: {
         name: 'PWA Sample Apps',
         short_name: 'PWAApps',            // ホーム画面に追加した時に表示される名前

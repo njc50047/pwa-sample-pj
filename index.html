@@ -4,6 +4,26 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <script>
+      if('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+        })
+      }
+    </script> -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+          appId: "48acf5cf-a77b-4c97-ab6f-e2d69f19efe1",
+          safari_web_id: "web.onesignal.auto.0908e376-c893-48cd-92f7-007572df5c49",
+          notifyButton: {
+            enable: true,
+          },
+        });
+      });
+    </script>
     <title>Vite + React + TS</title>
   </head>
   <body>
