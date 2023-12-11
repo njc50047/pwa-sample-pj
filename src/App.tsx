@@ -1,9 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import OneSignal from 'react-onesignal'
 
 function App() {
+  useEffect(() => {
+    (async() => {
+      OneSignal.init({ 
+        // TODO: 事前にメモしておいた appID に置き換えてください。OneSignal のダッシュボードでヘッダーの Settins → Keys & IDs でも確認できます。
+        appId: 'ec29a915-d795-40cf-8f9b-d604a46d3e29', 
+      })
+    })()
+  }, [])
   const [count, setCount] = useState(0)
 
   return (
