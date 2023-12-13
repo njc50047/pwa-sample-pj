@@ -1,42 +1,93 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect, } from 'react'
 import './App.css'
-import OneSignal from 'react-onesignal'
-
+import { OneSignalInitial } from './OneSignalInitial'
+ 
 function App() {
-  useEffect(() => {
-    (async() => {
-      OneSignal.init({ 
-        // TODO: 事前にメモしておいた appID に置き換えてください。OneSignal のダッシュボードでヘッダーの Settins → Keys & IDs でも確認できます。
-        appId: '48acf5cf-a77b-4c97-ab6f-e2d69f19efe1', 
-      })
-    })()
-  }, [])
+  
+  // タップカウントステート
   const [count, setCount] = useState(0)
+  // 時間のステート
+  const [time, setTime] = useState(String(10000/1000))
+  // 実行中なのか状態ステート
+  const [runing, setRuning] = useState(false)
+  // タップするボタンの活性状態ステート
+  const [tapDesabled, setTapDesabled] = useState(true)
+  // 実行ボタンのDisplay状態ステート
+  const [stBtnDisplay, setStBtnDisplay] = useState('inline-block')
+  // スタートボタンのテキストステート
+  const [stBtnText, setStBtnText] = useState('START')
+  
+  // 初回設定
+  const initGame = () => {
+    setCount(0)
+    setTime(String(10000/1000));
+  }
+  // Tap実行処理
+  const tapClick = () => {
+    console.log(runing);
+    if (!runing) return
+    setCount((count) => count + 1)
+    return
+  }
+  // スタートボタンの処理
+  const startBtn = () => {
+    // 最初に戻す
+    initGame()
+    // 実行中にする
+    setRuning(true)
+    // デザインの変更
+    setTapDesabled(false)
+    // デザインの変更
+    setStBtnDisplay('none')
+
+    return undefined
+  }
+
+  // タイマーの動き
+  useEffect(() => {
+
+    let timerInterval: number | undefined = undefined;
+    // タイマーが動いている場合
+    if (runing) {
+      console.log("スタート・ストップが切り替わりました");
+      let stopTime = '10';
+      timerInterval = window.setInterval(() => {
+        if (Number(stopTime) !== 0) {
+          setTime((time) =>  {
+            stopTime = ((Number(time) * 1000 - 10)/ 1000).toFixed(2)
+            return stopTime
+          })
+        }
+
+        if (Number(stopTime) === 0) {
+          // 0秒になったら終了
+          setRuning(false)
+          setTapDesabled(false)
+          setStBtnDisplay('inline-block')
+          setStBtnText('もう一回')
+        }
+      }, 10)
+    }
+    // クリーンアップ（タイマーをクリア）
+    return () => {
+      clearInterval(timerInterval);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [runing]);
+
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+      <OneSignalInitial />
+      <section className="container">
+        <h1 className="title">10秒で何回タップできるか</h1>
+        <button  className="btn-tap" disabled={tapDesabled} onClick={() => {tapClick()}}>
+          <span id="js-count">{count}</span>
+          <br/>タップ!!
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <div className="time">残り時間 <span id="js-time">{time}</span> 秒</div>
+        <button  className="btn"  style={{display: stBtnDisplay}} onClick={startBtn}>{stBtnText}</button>
+      </section>{runing}
     </>
   )
 }
