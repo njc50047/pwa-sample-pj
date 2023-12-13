@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- サービスワーカーをインライン要素で設定する方法 -->
     <!-- <script>
       if('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -11,9 +11,23 @@
         })
       }
     </script> -->
-    <title>Vite + React + TS</title>
-    <script type="module" crossorigin src="./assets/index-S2U0xJH1.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-4sK4E3Wk.css">
+    <!-- プッシュ通知をインライン要素で設定剃る方法 -->
+    <!-- <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.init({
+          appId: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          //safari_web_id: "web.onesignal.auto.xxxxxxxxxxxxxxxxx",
+          //notifyButton: {
+          //  enable: true,
+          //},
+        });
+      });
+    </script> -->
+    <title>PWA サンプル Apps</title>
+    <script type="module" crossorigin src="./assets/index-E3WIV42v.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-qguhADHa.css">
   <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
   <body>
     <div id="root"></div>
